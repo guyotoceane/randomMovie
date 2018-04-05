@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, Text, View, StyleSheet  } from 'react-native';
+import { ActivityIndicator, Text, View, StyleSheet, Button  } from 'react-native';
 
 export default class FetchExample extends React.Component {
 
@@ -9,13 +9,31 @@ export default class FetchExample extends React.Component {
   }
 
   componentDidMount(){
-    return fetch('http://www.omdbapi.com/?apikey=44659dcd&i=tt1092026')
+    this.new();
+  }
+  
+random= (min, max) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min +1)) + min;
+}
+
+stru= (num) => {
+  var str = "" + num;
+  var frmt = "0000000";
+  return frmt.substring(0, frmt.length - str.length) + str;
+  
+}
+
+
+  new = () => {
+    fetch('http://www.omdbapi.com/?apikey=44659dcd&i=tt' + this.stru(this.random(0, 1000000)))
       .then((response) => response.json())
       .then((responseJson) => {
-
         this.setState({
           isLoading: false,
           dataSource: responseJson,
+          test: this.random('00', '19'),
 
         }, function(){
 
@@ -26,8 +44,6 @@ export default class FetchExample extends React.Component {
         console.error(error);
       });
   }
-
-
 
   render(){
 
@@ -42,10 +58,14 @@ export default class FetchExample extends React.Component {
 
     return(
       <View style={{flex: 1, paddingTop:30}}>
+
           <View style={styles.center}>
+                <Button  onPress={this.new
+                  } title="Random Movie" />
               <Text style={styles.title}>{this.state.dataSource.Title}</Text>
           </View>
           <View style={styles.para}>
+              <Text style={styles.text}>Type : {this.state.dataSource.Type}</Text>
               <Text style={styles.text}>Year : {this.state.dataSource.Year}</Text>
               <Text style={styles.text}>Genre : {this.state.dataSource.Genre}</Text>
           </View>
@@ -57,7 +77,6 @@ export default class FetchExample extends React.Component {
           <View style={styles.para}>
               <Text style={styles.text}>Plot : {this.state.dataSource.Plot}</Text>
           </View>
-          <Text style={styles.text}>Lien image a debug : {this.state.img}</Text>
 
       </View>
     );
