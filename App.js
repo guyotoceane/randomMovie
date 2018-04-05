@@ -5,6 +5,7 @@ import {
   View,
   StyleSheet,
   Button,
+  Image
 } from 'react-native';
 
 export default class FetchExample extends React.Component {
@@ -72,6 +73,12 @@ export default class FetchExample extends React.Component {
 
         <View style={styles.center}>
           <Button onPress={this.new} title="Random Movie" />
+          <View>
+              <Image
+              style={{width: 120, height: 180}}
+              source={{uri: this.state.dataSource.Poster}}
+            />
+        </View>
           <Text style={styles.title}>{this.state.dataSource.Title}</Text>
         </View>
         <View style={styles.para}>
@@ -94,6 +101,7 @@ export default class FetchExample extends React.Component {
         <View style={styles.para}>
           <Text style={styles.text}>Plot : {this.state.dataSource.Plot}</Text>
         </View>
+        
 
       </View>
     );
