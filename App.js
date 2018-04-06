@@ -60,7 +60,7 @@ export default class FetchExample extends React.Component {
           },
           function() {
             if (responseJson.Response === 'False') {
-              Alert.alert('Error', responseJson.Error);
+              Alert.alert('Error database', responseJson.Error);
               this.setState({
                 isStart: true,
               });
@@ -218,4 +218,3 @@ const styles = StyleSheet.create({
     height: 180,
   },
 });
-
