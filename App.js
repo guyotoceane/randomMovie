@@ -40,7 +40,7 @@ export default class FetchExample extends React.Component {
 
   new = () => {
     fetch(
-      'http://www.omdbapi.com/?apikey=d59b6cb9&i=tt' +
+      'http://www.omdbapi.com/?apikey=a22eb348&i=tt' +
         this.stru(this.random(0, 1000000))
     )
       .then(response => response.json())
@@ -84,7 +84,11 @@ export default class FetchExample extends React.Component {
             <Picker.Item label="Movie" value="movie" />
             <Picker.Item label="Serie" value="series" />
           </Picker>
-          <Button color='#0B748B' onPress={this.new} title={'Random ' + this.state.type} />
+          <Button
+            color="#0B748B"
+            onPress={this.new}
+            title={'Random ' + this.state.type}
+          />
         </View>
       );
     } else if (this.state.isLoading) {
@@ -99,27 +103,36 @@ export default class FetchExample extends React.Component {
     return (
       <ScrollView style={{ flex: 1, paddingTop: 30 }}>
         <View style={styles.back}>
-          <Button color='#0B748B' onPress={this.back} title="Back" />
+          <Button color="#0B748B" onPress={this.back} title="Back" />
         </View>
 
         <View style={styles.center}>
 
-          <Button color='#0B748B' onPress={this.new} title={'Random ' + this.state.type} />
-          <View style={styles.para}>
+          <Button
+            color="#0B748B"
+            onPress={this.new}
+            title={'Random ' + this.state.type}
+          />
+
+          <Text style={styles.title}>{this.state.dataSource.Title}</Text>
+        </View>
+        <View style={styles.paraGeneral}>
+          <View>
+            <Text style={styles.text}>Type : {this.state.dataSource.Type}</Text>
+            <Text style={styles.text}>
+              Rating : {this.state.dataSource.imdbRating}
+            </Text>
+            <Text style={styles.text}>Year : {this.state.dataSource.Year}</Text>
+            <Text style={styles.text}>
+              Genre : {this.state.dataSource.Genre}
+            </Text>
+          </View>
+          <View>
             <Image
               style={styles.poster}
               source={{ uri: this.state.dataSource.Poster }}
             />
           </View>
-          <Text style={styles.title}>{this.state.dataSource.Title}</Text>
-        </View>
-        <View style={styles.para}>
-          <Text style={styles.text}>Type : {this.state.dataSource.Type}</Text>
-          <Text style={styles.text}>
-            Rating : {this.state.dataSource.imdbRating}
-          </Text>
-          <Text style={styles.text}>Year : {this.state.dataSource.Year}</Text>
-          <Text style={styles.text}>Genre : {this.state.dataSource.Genre}</Text>
         </View>
         <View style={styles.para}>
           <Text style={styles.text}>
@@ -165,6 +178,11 @@ const styles = StyleSheet.create({
 
   para: {
     paddingTop: 15,
+  },
+  paraGeneral: {
+    paddingTop: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   poster: {
     paddingTop: 15,
