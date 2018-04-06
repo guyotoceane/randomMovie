@@ -85,19 +85,21 @@ export default class FetchExample extends React.Component {
     if (this.state.isStart) {
       return (
         <View style={styles.center}>
+          <Text>Key : http://www.omdbapi.com/apikey.aspx</Text>
           <TextInput
-            style={{height: 40}}
-            placeholder={'Api key ' + this.state.key}
+            style={{height: 40, width: 150}}
+            placeholder= {this.state.key}
             onChangeText={(key) => this.setState({key})}
           />
           <Picker
-            style={{ width: 200 }}
+            style={{ width: 150 }}
             selectedValue={this.state.type}
             onValueChange={type => this.setState({ type: type })}>
             <Picker.Item label="Movie" value="movie" />
             <Picker.Item label="Serie" value="series" />
           </Picker>
           <Button
+            style={{ width: 150 }}
             color="#0B748B"
             onPress={this.new}
             title={'Random ' + this.state.type}
