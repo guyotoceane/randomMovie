@@ -10,7 +10,7 @@ import {
   Picker,
   TextInput,
   Alert,
-
+  Linking,
 } from 'react-native';
 
 export default class FetchExample extends React.Component {
@@ -44,7 +44,9 @@ export default class FetchExample extends React.Component {
 
   new = () => {
     fetch(
-      'http://www.omdbapi.com/?apikey='+ this.state.key +'&i=tt' +
+      'http://www.omdbapi.com/?apikey=' +
+        this.state.key +
+        '&i=tt' +
         this.stru(this.random(0, 1000000))
     )
       .then(response => response.json())
@@ -57,15 +59,16 @@ export default class FetchExample extends React.Component {
             count: this.state.count + 1,
           },
           function() {
-             if (responseJson.Response === "False"){
-                Alert.alert('Error', responseJson.Error);
-                this.setState({  isStart: true,
+            if (responseJson.Response === 'False') {
+              Alert.alert('Error', responseJson.Error);
+              this.setState({
+                isStart: true,
               });
-            }else if(
+            } else if (
               responseJson.imdbRating === 'N/A' ||
               parseFloat(responseJson.imdbRating) <= 6.5 ||
               responseJson.Type != this.state.type
-            ){
+            ) {
               this.new();
             } else {
               this.setState({
@@ -85,11 +88,16 @@ export default class FetchExample extends React.Component {
     if (this.state.isStart) {
       return (
         <View style={styles.center}>
-          <Text>Key : http://www.omdbapi.com/apikey.aspx</Text>
+          <Text
+            style={{ color: '#0B748B' }}
+            onPress={() =>
+              Linking.openURL('http://www.omdbapi.com/apikey.aspx')}>
+            Generate a key for a better user experience
+          </Text>
           <TextInput
-            style={{height: 40, width: 150}}
-            placeholder= {this.state.key}
-            onChangeText={(key) => this.setState({key})}
+            style={{ height: 40, width: 150 }}
+            placeholder={this.state.key}
+            onChangeText={key => this.setState({ key })}
           />
           <Picker
             style={{ width: 150 }}
@@ -104,15 +112,17 @@ export default class FetchExample extends React.Component {
             onPress={this.new}
             title={'Random ' + this.state.type}
           />
-           
+
         </View>
       );
     } else if (this.state.isLoading) {
       return (
         <View style={{ flex: 1, padding: 20 }}>
-            <ActivityIndicator />
-            <Text>Loading ... {this.state.count} {this.state.dataSource.ImdbID}</Text>
-            <Button color="#0B748B" onPress={this.back} title="Back" />
+          <ActivityIndicator />
+          <Text>
+            Loading ... {this.state.count} {this.state.dataSource.ImdbID}
+          </Text>
+          <Button color="#0B748B" onPress={this.back} title="Back" />
         </View>
       );
     }
@@ -199,7 +209,7 @@ const styles = StyleSheet.create({
   paraGeneral: {
     paddingTop: 15,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   poster: {
     paddingTop: 15,
@@ -208,3 +218,4 @@ const styles = StyleSheet.create({
     height: 180,
   },
 });
+
