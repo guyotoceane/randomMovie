@@ -117,9 +117,9 @@ export default class FetchExample extends React.Component {
       );
     } else if (this.state.isLoading) {
       return (
-        <View style={{ flex: 1, padding: 20 }}>
+        <View style={ styles.center }>
           <ActivityIndicator />
-          <Text>
+          <Text style={{ textAlign : 'center' }}>
             Loading ... {this.state.count} {this.state.dataSource.ImdbID}
           </Text>
           <Button color="#0B748B" onPress={this.back} title="Back" />
